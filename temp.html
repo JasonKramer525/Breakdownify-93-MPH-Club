@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Complete Bootstrap 4 Website Layout</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="style.css" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#"><img src="img/BreakdownifyHeader.png"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"</span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="index.html" >Home</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Leaderboards</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">How It Was Made</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Connect</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+
+
+<!--- Welcome Section -->
+<div class="container-fluid padding">
+<div class="row welcome text-center">
+
+	<div class="col-12">
+		<h1 class="display-4">93 MPH Club Scoreboard</h1>
+		<hr>
+		<p class="lead">The 93 MPH Club is Jomboy Media's competition they run weekly on Instagram. If you respond to one of their posts within the 
+		first 93 seconds, you get an entry into their weekly giveaway. Using a Web Scraper to scrape data from Instagram and with the help of a Python script,
+		below are this week's statistics for the 93 MPH Club</p>
+		<br>
+		<img src="img/93MPH.jpg"><br><br>
+		<h4>Update: Currently, </h4>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+	<div class="col-6">
+		<h4 style="text-align:left;">Sort By: 
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Most Posts in 93 Seconds</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Alphabetically</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Reverse Alphabetically</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Most Total Posts</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Longest Time to Respond</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Best Average Response Time</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Closest Misses</button>
+		</h4>
+	</div>
+
+		<div class="col-6">
+			<h4>Search:
+		<input id="searchBox" type="text" aria-describedby="emailHelp" onkeyup="newSearch()"></input></h4> </div>
+
+</div>
+</div>
+
+<div class="container-fluid padding">
+<div class="row padding">
+	<div class="col-lg-6">
+		<h2>Web Scraping Script</h2>
+		<h5 class="align-middle">Using Python with the help of selenium, pandas, xlrd and openpyxl, I wrote a script that goes to a specified Instagram post in a Chrome browser and expands the comments as far as it can. From the post, video or IGTV, it gathers the poster's name, comment and time posted for each comment by searching through the HTML. All of this data is stored in a CSV</h5>
+		<br>
+	</div>
+	<div class="col-lg-6">
+		<img src="img/web-scrape.png" class="img-fluid"></img>
+	</div>
+</div>
+</div>
+
+<div class="container-fluid padding">
+<div class="row padding">
+	<div class="col-lg-6">
+		<img src="img/python-code.png" class="img-fluid"></img>
+	</div>
+	<div class="col-lg-6">
+		<h2>Data Gathering Script</h2>
+		<h5 class="align-middle">I created another Python script for gathering the data together from multiple CSVs. Instagram timestamps are stored in a special format called ISO 8601 time. Because this format is difficult to work with, I convert them into a more managable timestamp. Using the datetime python library, I split up each timestamp into second, minute, hour, day, etc. and made it into a datetime object. I did the same for the original timestamp Jomboy Media made the post. Then, I subtract the commenter's datetime from Jomboy Media's datetime to get the difference in seconds between the response and the post. If it's 93 seconds or less, then it qualifies for the 93 MPH Club.</h5>
+		<br>
+	</div>
+
+</div>
+</div>
+
+<div class="container-fluid padding">
+<div class="row padding">
+	<div class="col-lg-6">
+		<h5 class="align-middle">After I have the new list of usernames and the seconds taken to respond, I check for multiple responses from the same person on a single post. If they respond multiple times, then I keep their lowest time and remove the others. </h5>
+		<br>
+	</div>
+		<div class="col-lg-6">
+		<img src="img/overlapping-users.png" class="img-fluid"></img>
+	</div>
+
+</div>
+</div>
+
+<div class="container-fluid padding">
+<div class="row padding">
+	<div class="col-lg-6">
+		<img src="img/old-data.png" class="img-fluid"></img>
+	</div>
+	<div class="col-lg-6">
+		<h5 class="align-middle">Now that I have the unique usernames for the new post, I read in the CSV that contains the previous data from all other posts. Again, I check for overlap, this time between usernames in the new and old tables. If there is any overlap, then I want to combine the data. If not, then it gets added as a new row. If there is a user from the full table that isn't in the new post table, then it gets copied over directly into the new full table. </h5>
+		<h5>The data I track includes the username, the total amount of posts they have, how many times they posted within the first 93 seconds, their best response time, their worst response time, their average response time and the nearest miss they had from posting within 93 seconds.</h5>
+		<h5>Unfortunately, I only noticed after running the scripts on all of Jomboy Media's posts from last week that not all IGTV comments display in the web browser.</h5>
+		<br>
+	</div>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+<!--- Footer -->
+<footer>
+	<div class="container-fluid padding">
+		<div class="row text-center">
+			<div class="col-md-4">
+				<img src="img/BreakdownifyInverted.png">
+				<hr class="light">
+				<p>555-555-5555</p>
+				<p>jason@gmail.com</p>
+				<p>more info if needed</p>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Our Hours</h5>
+				<hr class="light">
+				<p>More info here...</p>
+				<p>More info here even more</p>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Our Hours</h5>
+				<hr class="light">
+				<p>More info here...</p>
+				<p>More info here even more</p>
+			</div>
+			<div class="col-12">
+				<hr class="light-100">
+				<h5>&copy; breakdownify.club</h5>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+
+</body>
+</html>
+
+

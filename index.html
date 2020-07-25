@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Breakdownify</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="icon" href="img/BreakdownifyIcon.png">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<script type="text/javascript" src="index.js"></script>
+	<script type="text/javascript" src="data.js"></script>
+	<link href="style.css" rel="stylesheet">
+
+<!-- <link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
+</head>
+<body onLoad="onLoad();">
+
+<!-- Navigation -->
+
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="index"><img src="img/BreakdownifyHeader.png"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"</span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="index">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="93mph">93 MPH Scoreboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="howitsmade">How It Was Made</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="contact">Connect</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!--- Image Slider -->
+<div id="slides" class="carousel slide" data-ride="carousel">
+<ul class="carousel-indicators">
+	<li data-target="#slides" data-slide-to="0" class="active"></li>
+	<li data-target="#slides" data-slide-to="1"></li>
+	<li data-target="#slides" data-slide-to="2"></li>
+</ul>
+
+<div class="carousel-inner">
+	<div class="carousel-item active">
+		<img src="img/baseballonfield.jpg">
+		<div class="carousel-caption">
+			<h1 class="display-2">Jomboy Breakdown</h1>
+			<h3>Search Engine</h3>
+			<!-- <button type="button" class="btn btn-outline-light btn-lg">VIEW DEMO</button>  --->
+			<!-- <button type="button" class="btn btn-primary btn-lg">Get Started</button> --->
+		</div>
+	</div>
+	<div class="carousel-item">
+		<img src="img/speed-radar.jpg">
+		<div class="carousel-caption">
+			<h1 class="display-2">93 MPH Scoreboard</h1>
+			<h3>Want to see where you stand in the 93 MPH Competition? See the standings here!</h3>
+			<a href="93mph"><button type="button" class="btn btn-primary btn-lg">View Standings</button></a>
+		</div>
+	</div>
+	<div class="carousel-item">
+		<img src="img/code.jpg">
+		<div class="carousel-caption">
+			<h3 class="display-2">Breakdownify, a breakdown</h3>
+			<h4>Want to learn how the website was made?</h4>
+			<a href="howitsmade"><button type="button" class="btn btn-primary btn-lg">How It Was Made</button></a>
+		</div>
+	</div>
+</div>
+</div>
+
+<!--- Jumbotron -->
+<div class="container-fluid">
+<div class="row jumbotron">
+	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10">
+		<p class="lead">This is a fan made site using the YouTube API, Python, Bootstrap & Javascript. Filter Jomboy Breakdown Videos based on Players, Teams and sort by likes, comments, date and more!</p>
+	</div>
+</div>
+</div>
+
+<!--- Welcome Section -->
+<div class="container-fluid padding">
+<div class="row welcome text-center">
+	<div class="col-12">
+		<h1 class="display-4">Find A Video</h1>
+		<hr>
+	</div>
+	<div class="col-12">
+		<p class="lead">Below are filters you can apply to find specific Jomboy Media breakdowns. You can choose as many filters as you'd like and one sort option!</p>
+	</div>
+	<div class="col-lg-6">
+			<h4 style="text-align:left;">Filters: 
+			<div class="btn-group">
+			  <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  	 <span class="caret">Sports</span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu" id="filterDropdown">
+				<a class="dropdown-item" id = "Baseball" onclick="filterPicked('Baseball')">Baseball</a>
+			    <a class="dropdown-item" id = "Football" onclick="filterPicked('Football')">Football</a>
+			    <a class="dropdown-item" id = "Hockey" onclick="filterPicked('Hockey')">Hockey</a>
+			    <a class="dropdown-item" id = "Soccer" onclick="filterPicked('Soccer')">Soccer</a>
+			    <a class="dropdown-item" id = "Basketball" onclick="filterPicked('Basketball')">Basketball</a>
+			    <a class="dropdown-item" id = "Misc" onclick="filterPicked('Misc')">Misc</a>
+			  </div>
+			</div>
+
+			<div class="btn-group">
+			  <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  	 <span class="caret">Teams</span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu" id="filterDropdown">
+			  	<input style="height:2em; transform: translateY(-8px)" type="text" placeholder="Search.." id="team-input" onkeyup="filterDropdown('drop-team','team-input')">
+				<a class="dropdown-item drop-team" id = "Angels" onclick="filterPicked('Angels')">Angels</a>
+			    <a class="dropdown-item drop-team" id = "Atheletics" onclick="filterPicked('Atheletics')">Atheletics</a>
+			    <a class="dropdown-item drop-team" id = "Astros" onclick="filterPicked('Astros')">Astros</a>
+				<a class="dropdown-item drop-team" id = "Blue Jays" onclick="filterPicked('Blue Jays')">Blue Jays</a>
+			    <a class="dropdown-item drop-team" id = "Braves" onclick="filterPicked('Braves')">Braves</a>
+			    <a class="dropdown-item drop-team" id = "Brewers" onclick="filterPicked('Brewers')">Brewers</a>
+			    <a class="dropdown-item drop-team" id = "Cardinals" onclick="filterPicked('Cardinals')">Cardinals</a>
+			    <a class="dropdown-item drop-team" id = "Cubs" onclick="filterPicked('Cubs')">Cubs</a>
+			    <a class="dropdown-item drop-team" id = "Diamondbacks" onclick="filterPicked('Diamondbacks')">Diamondbacks</a>
+			    <a class="dropdown-item drop-team" id = "Dodgers" onclick="filterPicked('Dodgers')">Dodgers</a>
+			    <a class="dropdown-item drop-team" id = "Giants" onclick="filterPicked('Giants')">Giants</a>
+			    <a class="dropdown-item drop-team" id = "Indians" onclick="filterPicked('Indians')">Indians</a>
+			    <a class="dropdown-item drop-team" id = "Mariners" onclick="filterPicked('Mariners')">Mariners</a>
+			    <a class="dropdown-item drop-team" id = "Marlins" onclick="filterPicked('Marlins')">Marlins</a>
+			    <a class="dropdown-item drop-team" id = "Mets" onclick="filterPicked('Mets')">Mets</a>
+			    <a class="dropdown-item drop-team" id = "Nationals" onclick="filterPicked('Nationals')">Nationals</a>
+			    <a class="dropdown-item drop-team" id = "Orioles" onclick="filterPicked('Orioles')">Orioles</a> 
+			    <a class="dropdown-item drop-team" id = "Padres" onclick="filterPicked('Padres')">Padres</a>
+			    <a class="dropdown-item drop-team" id = "Phillies" onclick="filterPicked('Phillies')">Phillies</a>
+			    <a class="dropdown-item drop-team" id = "Pirates" onclick="filterPicked('Pirates')">Pirates</a>
+			    <a class="dropdown-item drop-team" id = "Rangers" onclick="filterPicked('Rangers')">Rangers</a>
+			    <a class="dropdown-item drop-team" id = "Rays" onclick="filterPicked('Rays')">Rays</a>
+			    <a class="dropdown-item drop-team" id = "Reds" onclick="filterPicked('Reds')">Reds</a>
+				<a class="dropdown-item drop-team" id = "Red Sox" onclick="filterPicked('Red Sox')">Red Sox</a>
+			    <a class="dropdown-item drop-team" id = "Rockies" onclick="filterPicked('Rockies')">Rockies</a>
+			    <a class="dropdown-item drop-team" id = "Royals" onclick="filterPicked('Royals')">Royals</a>
+			    <a class="dropdown-item drop-team" id = "Tigers" onclick="filterPicked('Tigers')">Tigers</a>
+			    <a class="dropdown-item drop-team" id = "Twins" onclick="filterPicked('Twins')">Twins</a>
+			    <a class="dropdown-item drop-team" id = "White Sox" onclick="filterPicked('White Sox')">White Sox</a>
+			    <a class="dropdown-item drop-team" id = "Yankees" onclick="filterPicked('Yankees')">Yankees</a>
+			  </div>
+			</div>
+
+			<div class="btn-group">
+			  <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  	 <span class="caret">Players</span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu" id="filterDropdown">
+			  	<input style="height:2em; transform: translateY(-8px); width:100%;" type="text" placeholder="Search.." id="player-input" 
+			  	onkeyup="filterDropdown('drop-player','player-input')">
+				<a class="dropdown-item drop-player" id = "A.J. Pierzynski" onclick='filterPicked("A.J. Pierzynski")'>A.J. Pierzynski</a>
+				<a class="dropdown-item drop-player" id = "AJ Hinch" onclick='filterPicked("AJ Hinch" )'>AJ Hinch</a>
+				<a class="dropdown-item drop-player" id = "AJ Pollock" onclick='filterPicked("AJ Pollock" )'>AJ Pollock</a>
+				<a class="dropdown-item drop-player" id = "Aaron Boone" onclick='filterPicked("Aaron Boone" )'>Aaron Boone</a>
+				<a class="dropdown-item drop-player" id = "Aaron Hicks" onclick='filterPicked("Aaron Hicks" )'>Aaron Hicks</a>
+				<a class="dropdown-item drop-player" id = "Aaron Judge" onclick='filterPicked("Aaron Judge" )'>Aaron Judge</a>
+				<a class="dropdown-item drop-player" id = "Abraham Toro" onclick='filterPicked("Abraham Toro" )'>Abraham Toro</a>
+				<a class="dropdown-item drop-player" id = "Adam Duvall" onclick='filterPicked("Adam Duvall" )'>Adam Duvall</a>
+				<a class="dropdown-item drop-player" id = "Adam Eaton" onclick='filterPicked("Adam Eaton" )'>Adam Eaton</a>
+				<a class="dropdown-item drop-player" id = "Adrian Houser" onclick='filterPicked("Adrian Houser" )'>Adrian Houser</a>
+				<a class="dropdown-item drop-player" id = "Adrian Sampson" onclick='filterPicked("Adrian Sampson" )'>Adrian Sampson</a>
+				<a class="dropdown-item drop-player" id = "Al Cabrera" onclick='filterPicked("Al Cabrera" )'>Al Cabrera</a>
+				<a class="dropdown-item drop-player" id = "Alan Wiggins" onclick='filterPicked("Alan Wiggins" )'>Alan Wiggins</a>
+				<a class="dropdown-item drop-player" id = "Albert Belle" onclick='filterPicked("Albert Belle" )'>Albert Belle</a>
+				<a class="dropdown-item drop-player" id = "Alex Bregman" onclick='filterPicked("Alex Bregman" )'>Alex Bregman</a>
+				<a class="dropdown-item drop-player" id = "Alex Cora" onclick='filterPicked("Alex Cora" )'>Alex Cora</a>
+				<a class="dropdown-item drop-player" id = "Alex Verdugo" onclick='filterPicked("Alex Verdugo" )'>Alex Verdugo</a>
+				<a class="dropdown-item drop-player" id = "Amir Garrett" onclick='filterPicked("Amir Garrett" )'>Amir Garrett</a>
+				<a class="dropdown-item drop-player" id = "Andrew Benintendi" onclick='filterPicked("Andrew Benintendi" )'>Andrew Benintendi</a>
+				<a class="dropdown-item drop-player" id = "Anthony Rendon" onclick='filterPicked("Anthony Rendon" )'>Anthony Rendon</a>
+				<a class="dropdown-item drop-player" id = "Anthony Rizzo" onclick='filterPicked("Anthony Rizzo" )'>Anthony Rizzo</a>
+				<a class="dropdown-item drop-player" id = "Archie Bradley" onclick='filterPicked("Archie Bradley" )'>Archie Bradley</a>
+				<a class="dropdown-item drop-player" id = "Aristides Aquino" onclick='filterPicked("Aristides Aquino" )'>Aristides Aquino</a>
+				<a class="dropdown-item drop-player" id = "Armando Galarraga" onclick='filterPicked("Armando Galarraga" )'>Armando Galarraga</a>
+				<a class="dropdown-item drop-player" id = "Aroldis Chapman" onclick='filterPicked("Aroldis Chapman" )'>Aroldis Chapman</a>
+				<a class="dropdown-item drop-player" id = "Asdrubal Cabrera" onclick='filterPicked("Asdrubal Cabrera" )'>Asdrubal Cabrera</a>
+				<a class="dropdown-item drop-player" id = "Austin Barnes" onclick='filterPicked("Austin Barnes" )'>Austin Barnes</a>
+				<a class="dropdown-item drop-player" id = "Austin Hedges" onclick='filterPicked("Austin Hedges" )'>Austin Hedges</a>
+				<a class="dropdown-item drop-player" id = "Austin Meadows" onclick='filterPicked("Austin Meadows" )'>Austin Meadows</a>
+				<a class="dropdown-item drop-player" id = "Austin Riley" onclick='filterPicked("Austin Riley" )'>Austin Riley</a>
+				<a class="dropdown-item drop-player" id = "Austin Romine" onclick='filterPicked("Austin Romine" )'>Austin Romine</a>
+				<a class="dropdown-item drop-player" id = "Avisail Garcia" onclick='filterPicked("Avisail Garcia" )'>Avisail Garcia</a>
+				<a class="dropdown-item drop-player" id = "Babe Ruth" onclick='filterPicked("Babe Ruth" )'>Babe Ruth</a>
+				<a class="dropdown-item drop-player" id = "Ben Gamel" onclick='filterPicked("Ben Gamel" )'>Ben Gamel</a>
+				<a class="dropdown-item drop-player" id = "Billy Butler" onclick='filterPicked("Billy Butler" )'>Billy Butler</a>
+				<a class="dropdown-item drop-player" id = "Bo Jackson" onclick='filterPicked("Bo Jackson" )'>Bo Jackson</a>
+				<a class="dropdown-item drop-player" id = "Bob Melvin" onclick='filterPicked("Bob Melvin" )'>Bob Melvin</a>
+				<a class="dropdown-item drop-player" id = "Brad Hand" onclick='filterPicked("Brad Hand" )'>Brad Hand</a>
+				<a class="dropdown-item drop-player" id = "Brad Keller " onclick='filterPicked("Brad Keller " )'>Brad Keller </a>
+				<a class="dropdown-item drop-player" id = "Brandon Belt" onclick='filterPicked("Brandon Belt" )'>Brandon Belt</a>
+				<a class="dropdown-item drop-player" id = "Brandon Drury" onclick='filterPicked("Brandon Drury" )'>Brandon Drury</a>
+				<a class="dropdown-item drop-player" id = "Brandon Hyde" onclick='filterPicked("Brandon Hyde" )'>Brandon Hyde</a>
+				<a class="dropdown-item drop-player" id = "Brandon Phillips" onclick='filterPicked("Brandon Phillips" )'>Brandon Phillips</a>
+				<a class="dropdown-item drop-player" id = "Brett Gardner" onclick='filterPicked("Brett Gardner" )'>Brett Gardner</a>
+				<a class="dropdown-item drop-player" id = "Brian Dozier" onclick='filterPicked("Brian Dozier" )'>Brian Dozier</a>
+				<a class="dropdown-item drop-player" id = "Brian McCann" onclick='filterPicked("Brian McCann" )'>Brian McCann</a>
+				<a class="dropdown-item drop-player" id = "Brian Moran" onclick='filterPicked("Brian Moran" )'>Brian Moran</a>
+				<a class="dropdown-item drop-player" id = "Brian Snitker" onclick='filterPicked("Brian Snitker" )'>Brian Snitker</a>
+				<a class="dropdown-item drop-player" id = "Brock Holt" onclick='filterPicked("Brock Holt" )'>Brock Holt</a>
+				<a class="dropdown-item drop-player" id = "Bruce Bochy" onclick='filterPicked("Bruce Bochy" )'>Bruce Bochy</a>
+				<a class="dropdown-item drop-player" id = "Bryce Harper" onclick='filterPicked("Bryce Harper" )'>Bryce Harper</a>
+				<a class="dropdown-item drop-player" id = "Buck Martinez" onclick='filterPicked("Buck Martinez" )'>Buck Martinez</a>
+				<a class="dropdown-item drop-player" id = "Bud Black" onclick='filterPicked("Bud Black" )'>Bud Black</a>
+				<a class="dropdown-item drop-player" id = "C.J. Cron" onclick='filterPicked("C.J. Cron" )'>C.J. Cron</a>
+				<a class="dropdown-item drop-player" id = "CC Sabathia" onclick='filterPicked("CC Sabathia" )'>CC Sabathia</a>
+				<a class="dropdown-item drop-player" id = "Caleb Smith" onclick='filterPicked("Caleb Smith" )'>Caleb Smith</a>
+				<a class="dropdown-item drop-player" id = "Cameron Maybin" onclick='filterPicked("Cameron Maybin" )'>Cameron Maybin</a>
+				<a class="dropdown-item drop-player" id = "Carlos Asuaje" onclick='filterPicked("Carlos Asuaje" )'>Carlos Asuaje</a>
+				<a class="dropdown-item drop-player" id = "Carlos Correa" onclick='filterPicked("Carlos Correa" )'>Carlos Correa</a>
+				<a class="dropdown-item drop-player" id = "Carlos Gonzalez" onclick='filterPicked("Carlos Gonzalez" )'>Carlos Gonzalez</a>
+				<a class="dropdown-item drop-player" id = "Carlos Martinez" onclick='filterPicked("Carlos Martinez" )'>Carlos Martinez</a>
+				<a class="dropdown-item drop-player" id = "Carlos Santana" onclick='filterPicked("Carlos Santana" )'>Carlos Santana</a>
+				<a class="dropdown-item drop-player" id = "Carson Kelly" onclick='filterPicked("Carson Kelly" )'>Carson Kelly</a>
+				<a class="dropdown-item drop-player" id = "Cavan Biggio" onclick='filterPicked("Cavan Biggio" )'>Cavan Biggio</a>
+				<a class="dropdown-item drop-player" id = "Chad Green" onclick='filterPicked("Chad Green" )'>Chad Green</a>
+				<a class="dropdown-item drop-player" id = "Chad Pinder" onclick='filterPicked("Chad Pinder" )'>Chad Pinder</a>
+				<a class="dropdown-item drop-player" id = "Charlie Blackmon" onclick='filterPicked("Charlie Blackmon" )'>Charlie Blackmon</a>
+				<a class="dropdown-item drop-player" id = "Charlie Culberson" onclick='filterPicked("Charlie Culberson" )'>Charlie Culberson</a>
+				<a class="dropdown-item drop-player" id = "Chase Utley" onclick='filterPicked("Chase Utley" )'>Chase Utley</a>
+				<a class="dropdown-item drop-player" id = "Chris Archer" onclick='filterPicked("Chris Archer" )'>Chris Archer</a>
+				<a class="dropdown-item drop-player" id = "Chris Davis" onclick='filterPicked("Chris Davis" )'>Chris Davis</a>
+				<a class="dropdown-item drop-player" id = "Chris Paddack" onclick='filterPicked("Chris Paddack" )'>Chris Paddack</a>
+				<a class="dropdown-item drop-player" id = "Chris Sale" onclick='filterPicked("Chris Sale" )'>Chris Sale</a>
+				<a class="dropdown-item drop-player" id = "Chris Taylor" onclick='filterPicked("Chris Taylor" )'>Chris Taylor</a>
+				<a class="dropdown-item drop-player" id = "Chris Woodward" onclick='filterPicked("Chris Woodward" )'>Chris Woodward</a>
+				<a class="dropdown-item drop-player" id = "Christian Yelich" onclick='filterPicked("Christian Yelich" )'>Christian Yelich</a>
+				<a class="dropdown-item drop-player" id = "Chuck Knoblauch" onclick='filterPicked("Chuck Knoblauch" )'>Chuck Knoblauch</a>
+				<a class="dropdown-item drop-player" id = "Clayton Kershaw" onclick='filterPicked("Clayton Kershaw" )'>Clayton Kershaw</a>
+				<a class="dropdown-item drop-player" id = "Clint Hurdle" onclick='filterPicked("Clint Hurdle" )'>Clint Hurdle</a>
+				<a class="dropdown-item drop-player" id = "Cody Bellinger" onclick='filterPicked("Cody Bellinger" )'>Cody Bellinger</a>
+				<a class="dropdown-item drop-player" id = "Cole Hamels" onclick='filterPicked("Cole Hamels" )'>Cole Hamels</a>
+				<a class="dropdown-item drop-player" id = "Cole Tucker" onclick='filterPicked("Cole Tucker" )'>Cole Tucker</a>
+				<a class="dropdown-item drop-player" id = "Colin Moran" onclick='filterPicked("Colin Moran" )'>Colin Moran</a>
+				<a class="dropdown-item drop-player" id = "Corey Seager" onclick='filterPicked("Corey Seager" )'>Corey Seager</a>
+				<a class="dropdown-item drop-player" id = "Craig Counsell" onclick='filterPicked("Craig Counsell" )'>Craig Counsell</a>
+				<a class="dropdown-item drop-player" id = "Craig Stammen" onclick='filterPicked("Craig Stammen" )'>Craig Stammen</a>
+				<a class="dropdown-item drop-player" id = "DJ LeMahieu" onclick='filterPicked("DJ LeMahieu" )'>DJ LeMahieu</a>
+				<a class="dropdown-item drop-player" id = "DJ Stewart" onclick='filterPicked("DJ Stewart" )'>DJ Stewart</a>
+				<a class="dropdown-item drop-player" id = "Dan Winkler" onclick='filterPicked("Dan Winkler" )'>Dan Winkler</a>
+				<a class="dropdown-item drop-player" id = "Daniel Hudson" onclick='filterPicked("Daniel Hudson" )'>Daniel Hudson</a>
+				<a class="dropdown-item drop-player" id = "Daniel Murphy" onclick='filterPicked("Daniel Murphy" )'>Daniel Murphy</a>
+				<a class="dropdown-item drop-player" id = "Danny Duffy" onclick='filterPicked("Danny Duffy" )'>Danny Duffy</a>
+				<a class="dropdown-item drop-player" id = "Danny Farquhar" onclick='filterPicked("Danny Farquhar" )'>Danny Farquhar</a>
+				<a class="dropdown-item drop-player" id = "Dansby Swanson" onclick='filterPicked("Dansby Swanson" )'>Dansby Swanson</a>
+				<a class="dropdown-item drop-player" id = "Darryl Strawberry" onclick='filterPicked("Darryl Strawberry" )'>Darryl Strawberry</a>
+				<a class="dropdown-item drop-player" id = "Dave Martinez" onclick='filterPicked("Dave Martinez" )'>Dave Martinez</a>
+				<a class="dropdown-item drop-player" id = "Dave Roberts" onclick='filterPicked("Dave Roberts" )'>Dave Roberts</a>
+				<a class="dropdown-item drop-player" id = "David Bell" onclick='filterPicked("David Bell" )'>David Bell</a>
+				<a class="dropdown-item drop-player" id = "David Bote" onclick='filterPicked("David Bote" )'>David Bote</a>
+				<a class="dropdown-item drop-player" id = "David Cone" onclick='filterPicked("David Cone" )'>David Cone</a>
+				<a class="dropdown-item drop-player" id = "David Freese" onclick='filterPicked("David Freese" )'>David Freese</a>
+				<a class="dropdown-item drop-player" id = "David Hulse" onclick='filterPicked("David Hulse" )'>David Hulse</a>
+				<a class="dropdown-item drop-player" id = "David Price" onclick='filterPicked("David Price" )'>David Price</a>
+				<a class="dropdown-item drop-player" id = "David Robertson" onclick='filterPicked("David Robertson" )'>David Robertson</a>
+				<a class="dropdown-item drop-player" id = "Dee Gordon" onclick='filterPicked("Dee Gordon" )'>Dee Gordon</a>
+				<a class="dropdown-item drop-player" id = "Deion Sanders" onclick='filterPicked("Deion Sanders" )'>Deion Sanders</a>
+				<a class="dropdown-item drop-player" id = "Dellin Betances" onclick='filterPicked("Dellin Betances" )'>Dellin Betances</a>
+				<a class="dropdown-item drop-player" id = "Derek Dietrich" onclick='filterPicked("Derek Dietrich" )'>Derek Dietrich</a>
+				<a class="dropdown-item drop-player" id = "Derek Fisher" onclick='filterPicked("Derek Fisher" )'>Derek Fisher</a>
+				<a class="dropdown-item drop-player" id = "Dexter Fowler" onclick='filterPicked("Dexter Fowler" )'>Dexter Fowler</a>
+				<a class="dropdown-item drop-player" id = "Didi Gregorious" onclick='filterPicked("Didi Gregorious" )'>Didi Gregorious</a>
+				<a class="dropdown-item drop-player" id = "Didi Gregorius" onclick='filterPicked("Didi Gregorius" )'>Didi Gregorius</a>
+				<a class="dropdown-item drop-player" id = "Doc Gooden" onclick='filterPicked("Doc Gooden" )'>Doc Gooden</a>
+				<a class="dropdown-item drop-player" id = "Dominic Smith" onclick='filterPicked("Dominic Smith" )'>Dominic Smith</a>
+				<a class="dropdown-item drop-player" id = "Don Mattingly" onclick='filterPicked("Don Mattingly" )'>Don Mattingly</a>
+				<a class="dropdown-item drop-player" id = "Don Zimmer" onclick='filterPicked("Don Zimmer" )'>Don Zimmer</a>
+				<a class="dropdown-item drop-player" id = "Drew Gagnon" onclick='filterPicked("Drew Gagnon" )'>Drew Gagnon</a>
+				<a class="dropdown-item drop-player" id = "Dylan Bundy" onclick='filterPicked("Dylan Bundy" )'>Dylan Bundy</a>
+				<a class="dropdown-item drop-player" id = "Dylan Moore" onclick='filterPicked("Dylan Moore" )'>Dylan Moore</a>
+				<a class="dropdown-item drop-player" id = "Eddie Rosario" onclick='filterPicked("Eddie Rosario" )'>Eddie Rosario</a>
+				<a class="dropdown-item drop-player" id = "Edwin Diaz" onclick='filterPicked("Edwin Diaz" )'>Edwin Diaz</a>
+				<a class="dropdown-item drop-player" id = "Edwin Jackson" onclick='filterPicked("Edwin Jackson" )'>Edwin Jackson</a>
+				<a class="dropdown-item drop-player" id = "Eloy Jiminez" onclick='filterPicked("Eloy Jiminez" )'>Eloy Jiminez</a>
+				<a class="dropdown-item drop-player" id = "Eric Davis" onclick='filterPicked("Eric Davis" )'>Eric Davis</a>
+				<a class="dropdown-item drop-player" id = "Eric Hosmer" onclick='filterPicked("Eric Hosmer" )'>Eric Hosmer</a>
+				<a class="dropdown-item drop-player" id = "Erik Kratz" onclick='filterPicked("Erik Kratz" )'>Erik Kratz</a>
+				<a class="dropdown-item drop-player" id = "Felipe Vazquez" onclick='filterPicked("Felipe Vazquez" )'>Felipe Vazquez</a>
+				<a class="dropdown-item drop-player" id = "Fernando Rodney" onclick='filterPicked("Fernando Rodney" )'>Fernando Rodney</a>
+				<a class="dropdown-item drop-player" id = "Francisco Cervelli" onclick='filterPicked("Francisco Cervelli" )'>Francisco Cervelli</a>
+				<a class="dropdown-item drop-player" id = "Francisco Lindor" onclick='filterPicked("Francisco Lindor" )'>Francisco Lindor</a>
+				<a class="dropdown-item drop-player" id = "Freddy Galvis" onclick='filterPicked("Freddy Galvis" )'>Freddy Galvis</a>
+				<a class="dropdown-item drop-player" id = "Gabe Kapler" onclick='filterPicked("Gabe Kapler" )'>Gabe Kapler</a>
+				<a class="dropdown-item drop-player" id = "Gary Sanchez" onclick='filterPicked("Gary Sanchez" )'>Gary Sanchez</a>
+				<a class="dropdown-item drop-player" id = "Gavin Lux" onclick='filterPicked("Gavin Lux" )'>Gavin Lux</a>
+				<a class="dropdown-item drop-player" id = "George Brett" onclick='filterPicked("George Brett" )'>George Brett</a>
+				<a class="dropdown-item drop-player" id = "George Springer" onclick='filterPicked("George Springer" )'>George Springer</a>
+				<a class="dropdown-item drop-player" id = "Gerrit Cole" onclick='filterPicked("Gerrit Cole" )'>Gerrit Cole</a>
+				<a class="dropdown-item drop-player" id = "Giancarlo Stanton" onclick='filterPicked("Giancarlo Stanton" )'>Giancarlo Stanton</a>
+				<a class="dropdown-item drop-player" id = "Gio Urshela" onclick='filterPicked("Gio Urshela" )'>Gio Urshela</a>
+				<a class="dropdown-item drop-player" id = "Glenn Sparkman" onclick='filterPicked("Glenn Sparkman" )'>Glenn Sparkman</a>
+				<a class="dropdown-item drop-player" id = "Gleyber Torres" onclick='filterPicked("Gleyber Torres" )'>Gleyber Torres</a>
+				<a class="dropdown-item drop-player" id = "Graig Nettles" onclick='filterPicked("Graig Nettles" )'>Graig Nettles</a>
+				<a class="dropdown-item drop-player" id = "Greg Bird" onclick='filterPicked("Greg Bird" )'>Greg Bird</a>
+				<a class="dropdown-item drop-player" id = "Greg Holland" onclick='filterPicked("Greg Holland" )'>Greg Holland</a>
+				<a class="dropdown-item drop-player" id = "Gregory Soto" onclick='filterPicked("Gregory Soto" )'>Gregory Soto</a>
+				<a class="dropdown-item drop-player" id = "Hector Neris" onclick='filterPicked("Hector Neris" )'>Hector Neris</a>
+				<a class="dropdown-item drop-player" id = "Hector Perez" onclick='filterPicked("Hector Perez" )'>Hector Perez</a>
+				<a class="dropdown-item drop-player" id = "Howie Kendrick" onclick='filterPicked("Howie Kendrick" )'>Howie Kendrick</a>
+				<a class="dropdown-item drop-player" id = "Hunter Pence" onclick='filterPicked("Hunter Pence" )'>Hunter Pence</a>
+				<a class="dropdown-item drop-player" id = "Hunter Strickland" onclick='filterPicked("Hunter Strickland" )'>Hunter Strickland</a>
+				<a class="dropdown-item drop-player" id = "Hyun Jin Ryu" onclick='filterPicked("Hyun Jin Ryu" )'>Hyun Jin Ryu</a>
+				<a class="dropdown-item drop-player" id = "Ian Desmond" onclick='filterPicked("Ian Desmond" )'>Ian Desmond</a>
+				<a class="dropdown-item drop-player" id = "Ian Happ" onclick='filterPicked("Ian Happ" )'>Ian Happ</a>
+				<a class="dropdown-item drop-player" id = "Ian Kinsler" onclick='filterPicked("Ian Kinsler" )'>Ian Kinsler</a>
+				<a class="dropdown-item drop-player" id = "J.D. Martinez" onclick='filterPicked("J.D. Martinez" )'>J.D. Martinez</a>
+				<a class="dropdown-item drop-player" id = "JD Martinez" onclick='filterPicked("JD Martinez" )'>JD Martinez</a>
+				<a class="dropdown-item drop-player" id = "Jace Fry" onclick='filterPicked("Jace Fry" )'>Jace Fry</a>
+				<a class="dropdown-item drop-player" id = "Jack Flaherty" onclick='filterPicked("Jack Flaherty" )'>Jack Flaherty</a>
+				<a class="dropdown-item drop-player" id = "Jackie Bradley Jr" onclick='filterPicked("Jackie Bradley Jr" )'>Jackie Bradley Jr</a>
+				<a class="dropdown-item drop-player" id = "Jacoby Ellsbury" onclick='filterPicked("Jacoby Ellsbury" )'>Jacoby Ellsbury</a>
+				<a class="dropdown-item drop-player" id = "Jake Bauers" onclick='filterPicked("Jake Bauers" )'>Jake Bauers</a>
+				<a class="dropdown-item drop-player" id = "Jake Marisnick" onclick='filterPicked("Jake Marisnick" )'>Jake Marisnick</a>
+				<a class="dropdown-item drop-player" id = "James Paxton" onclick='filterPicked("James Paxton" )'>James Paxton</a>
+				<a class="dropdown-item drop-player" id = "Jared Hughes" onclick='filterPicked("Jared Hughes" )'>Jared Hughes</a>
+				<a class="dropdown-item drop-player" id = "Jason Heyward" onclick='filterPicked("Jason Heyward" )'>Jason Heyward</a>
+				<a class="dropdown-item drop-player" id = "Jason Kipnis" onclick='filterPicked("Jason Kipnis" )'>Jason Kipnis</a>
+				<a class="dropdown-item drop-player" id = "Jason Vargas" onclick='filterPicked("Jason Vargas" )'>Jason Vargas</a>
+				<a class="dropdown-item drop-player" id = "Javier Baez" onclick='filterPicked("Javier Baez" )'>Javier Baez</a>
+				<a class="dropdown-item drop-player" id = "Jay Bruce" onclick='filterPicked("Jay Bruce" )'>Jay Bruce</a>
+				<a class="dropdown-item drop-player" id = "Jesse Winker" onclick='filterPicked("Jesse Winker" )'>Jesse Winker</a>
+				<a class="dropdown-item drop-player" id = "Jesus Aguilar" onclick='filterPicked("Jesus Aguilar" )'>Jesus Aguilar</a>
+				<a class="dropdown-item drop-player" id = "Ji Man Choi" onclick='filterPicked("Ji Man Choi" )'>Ji Man Choi</a>
+				<a class="dropdown-item drop-player" id = "Jim Leyland" onclick='filterPicked("Jim Leyland" )'>Jim Leyland</a>
+				<a class="dropdown-item drop-player" id = "Joc Pederson" onclick='filterPicked("Joc Pederson" )'>Joc Pederson</a>
+				<a class="dropdown-item drop-player" id = "Joe Harvey" onclick='filterPicked("Joe Harvey" )'>Joe Harvey</a>
+				<a class="dropdown-item drop-player" id = "Joe Kelly" onclick='filterPicked("Joe Kelly" )'>Joe Kelly</a>
+				<a class="dropdown-item drop-player" id = "Joe Maddon" onclick='filterPicked("Joe Maddon" )'>Joe Maddon</a>
+				<a class="dropdown-item drop-player" id = "Joe Musgrove" onclick='filterPicked("Joe Musgrove" )'>Joe Musgrove</a>
+				<a class="dropdown-item drop-player" id = "Johnny Cueto" onclick='filterPicked("Johnny Cueto" )'>Johnny Cueto</a>
+				<a class="dropdown-item drop-player" id = "Jonathan Holder" onclick='filterPicked("Jonathan Holder" )'>Jonathan Holder</a>
+				<a class="dropdown-item drop-player" id = "Jonathan Lucroy" onclick='filterPicked("Jonathan Lucroy" )'>Jonathan Lucroy</a>
+				<a class="dropdown-item drop-player" id = "Jonathan Schoop" onclick='filterPicked("Jonathan Schoop" )'>Jonathan Schoop</a>
+				<a class="dropdown-item drop-player" id = "Jorge Soler" onclick='filterPicked("Jorge Soler" )'>Jorge Soler</a>
+				<a class="dropdown-item drop-player" id = "Jose Abreu" onclick='filterPicked("Jose Abreu" )'>Jose Abreu</a>
+				<a class="dropdown-item drop-player" id = "Jose Altuve" onclick='filterPicked("Jose Altuve" )'>Jose Altuve</a>
+				<a class="dropdown-item drop-player" id = "Jose Alvarado" onclick='filterPicked("Jose Alvarado" )'>Jose Alvarado</a>
+				<a class="dropdown-item drop-player" id = "Jose Bautista" onclick='filterPicked("Jose Bautista" )'>Jose Bautista</a>
+				<a class="dropdown-item drop-player" id = "Jose Canseco" onclick='filterPicked("Jose Canseco" )'>Jose Canseco</a>
+				<a class="dropdown-item drop-player" id = "Jose Oquendo" onclick='filterPicked("Jose Oquendo" )'>Jose Oquendo</a>
+				<a class="dropdown-item drop-player" id = "Jose Ramirez" onclick='filterPicked("Jose Ramirez" )'>Jose Ramirez</a>
+				<a class="dropdown-item drop-player" id = "Jose Rondon" onclick='filterPicked("Jose Rondon" )'>Jose Rondon</a>
+				<a class="dropdown-item drop-player" id = "Josh Bell" onclick='filterPicked("Josh Bell" )'>Josh Bell</a>
+				<a class="dropdown-item drop-player" id = "Josh Donaldson" onclick='filterPicked("Josh Donaldson" )'>Josh Donaldson</a>
+				<a class="dropdown-item drop-player" id = "Josh Hader" onclick='filterPicked("Josh Hader" )'>Josh Hader</a>
+				<a class="dropdown-item drop-player" id = "Josh Reddick" onclick='filterPicked("Josh Reddick" )'>Josh Reddick</a>
+				<a class="dropdown-item drop-player" id = "Juan Soto" onclick='filterPicked("Juan Soto" )'>Juan Soto</a>
+				<a class="dropdown-item drop-player" id = "Julio Teheran" onclick='filterPicked("Julio Teheran" )'>Julio Teheran</a>
+				<a class="dropdown-item drop-player" id = "Junichi Tazawa" onclick='filterPicked("Junichi Tazawa" )'>Junichi Tazawa</a>
+				<a class="dropdown-item drop-player" id = "Justin Bour" onclick='filterPicked("Justin Bour" )'>Justin Bour</a>
+				<a class="dropdown-item drop-player" id = "Justin Smoak" onclick='filterPicked("Justin Smoak" )'>Justin Smoak</a>
+				<a class="dropdown-item drop-player" id = "Justin Turner" onclick='filterPicked("Justin Turner" )'>Justin Turner</a>
+				<a class="dropdown-item drop-player" id = "Justin Verlander" onclick='filterPicked("Justin Verlander" )'>Justin Verlander</a>
+				<a class="dropdown-item drop-player" id = "Ken Giles" onclick='filterPicked("Ken Giles" )'>Ken Giles</a>
+				<a class="dropdown-item drop-player" id = "Ken Griffey Jr" onclick='filterPicked("Ken Griffey Jr" )'>Ken Griffey Jr</a>
+				<a class="dropdown-item drop-player" id = "Keon Broxton" onclick='filterPicked("Keon Broxton" )'>Keon Broxton</a>
+				<a class="dropdown-item drop-player" id = "Kevin Cash" onclick='filterPicked("Kevin Cash" )'>Kevin Cash</a>
+				<a class="dropdown-item drop-player" id = "Kevin Kramer" onclick='filterPicked("Kevin Kramer" )'>Kevin Kramer</a>
+				<a class="dropdown-item drop-player" id = "Kevin Pillar" onclick='filterPicked("Kevin Pillar" )'>Kevin Pillar</a>
+				<a class="dropdown-item drop-player" id = "Kike Hernandez" onclick='filterPicked("Kike Hernandez" )'>Kike Hernandez</a>
+				<a class="dropdown-item drop-player" id = "Kirby Yates" onclick='filterPicked("Kirby Yates" )'>Kirby Yates</a>
+				<a class="dropdown-item drop-player" id = "Kolten Wong" onclick='filterPicked("Kolten Wong" )'>Kolten Wong</a>
+				<a class="dropdown-item drop-player" id = "Kris Bryant" onclick='filterPicked("Kris Bryant" )'>Kris Bryant</a>
+				<a class="dropdown-item drop-player" id = "Kurt Suzuki" onclick='filterPicked("Kurt Suzuki" )'>Kurt Suzuki</a>
+				<a class="dropdown-item drop-player" id = "Kyle Barraclough" onclick='filterPicked("Kyle Barraclough" )'>Kyle Barraclough</a>
+				<a class="dropdown-item drop-player" id = "Kyle Farmer" onclick='filterPicked("Kyle Farmer" )'>Kyle Farmer</a>
+				<a class="dropdown-item drop-player" id = "Kyle Farnsworth" onclick='filterPicked("Kyle Farnsworth" )'>Kyle Farnsworth</a>
+				<a class="dropdown-item drop-player" id = "Kyle Garlick" onclick='filterPicked("Kyle Garlick" )'>Kyle Garlick</a>
+				<a class="dropdown-item drop-player" id = "Kyle Hendricks" onclick='filterPicked("Kyle Hendricks" )'>Kyle Hendricks</a>
+				<a class="dropdown-item drop-player" id = "Kyle Schwarber" onclick='filterPicked("Kyle Schwarber" )'>Kyle Schwarber</a>
+				<a class="dropdown-item drop-player" id = "Kyle Seager" onclick='filterPicked("Kyle Seager" )'>Kyle Seager</a>
+				<a class="dropdown-item drop-player" id = "Luis Severino" onclick='filterPicked("Luis Severino" )'>Luis Severino</a>
+				<a class="dropdown-item drop-player" id = "Madison Bumgarner" onclick='filterPicked("Madison Bumgarner" )'>Madison Bumgarner</a>
+				<a class="dropdown-item drop-player" id = "Mallex Smith" onclick='filterPicked("Mallex Smith" )'>Mallex Smith</a>
+				<a class="dropdown-item drop-player" id = "Manny Machado" onclick='filterPicked("Manny Machado" )'>Manny Machado</a>
+				<a class="dropdown-item drop-player" id = "Marcell Ozuna" onclick='filterPicked("Marcell Ozuna" )'>Marcell Ozuna</a>
+				<a class="dropdown-item drop-player" id = "Marcus Semien" onclick='filterPicked("Marcus Semien" )'>Marcus Semien</a>
+				<a class="dropdown-item drop-player" id = "Marcus Stroman" onclick='filterPicked("Marcus Stroman" )'>Marcus Stroman</a>
+				<a class="dropdown-item drop-player" id = "Mark Buehrle" onclick='filterPicked("Mark Buehrle" )'>Mark Buehrle</a>
+				<a class="dropdown-item drop-player" id = "Mark Melancon" onclick='filterPicked("Mark Melancon" )'>Mark Melancon</a>
+				<a class="dropdown-item drop-player" id = "Mark Reynolds" onclick='filterPicked("Mark Reynolds" )'>Mark Reynolds</a>
+				<a class="dropdown-item drop-player" id = "Masahiro Tanaka" onclick='filterPicked("Masahiro Tanaka" )'>Masahiro Tanaka</a>
+				<a class="dropdown-item drop-player" id = "Matt Albers" onclick='filterPicked("Matt Albers" )'>Matt Albers</a>
+				<a class="dropdown-item drop-player" id = "Matt Beaty" onclick='filterPicked("Matt Beaty" )'>Matt Beaty</a>
+				<a class="dropdown-item drop-player" id = "Matt Carpenter" onclick='filterPicked("Matt Carpenter" )'>Matt Carpenter</a>
+				<a class="dropdown-item drop-player" id = "Matt Chapman" onclick='filterPicked("Matt Chapman" )'>Matt Chapman</a>
+				<a class="dropdown-item drop-player" id = "Matt Joyce" onclick='filterPicked("Matt Joyce" )'>Matt Joyce</a>
+				<a class="dropdown-item drop-player" id = "Max Fried" onclick='filterPicked("Max Fried" )'>Max Fried</a>
+				<a class="dropdown-item drop-player" id = "Max Kepler" onclick='filterPicked("Max Kepler" )'>Max Kepler</a>
+				<a class="dropdown-item drop-player" id = "Max Muncy" onclick='filterPicked("Max Muncy" )'>Max Muncy</a>
+				<a class="dropdown-item drop-player" id = "Max Scherzer" onclick='filterPicked("Max Scherzer" )'>Max Scherzer</a>
+				<a class="dropdown-item drop-player" id = "Michael Barrett" onclick='filterPicked("Michael Barrett" )'>Michael Barrett</a>
+				<a class="dropdown-item drop-player" id = "Michael Brantley" onclick='filterPicked("Michael Brantley" )'>Michael Brantley</a>
+				<a class="dropdown-item drop-player" id = "Michael Chavis" onclick='filterPicked("Michael Chavis" )'>Michael Chavis</a>
+				<a class="dropdown-item drop-player" id = "Michael Conforto" onclick='filterPicked("Michael Conforto" )'>Michael Conforto</a>
+				<a class="dropdown-item drop-player" id = "Michael Taylor" onclick='filterPicked("Michael Taylor" )'>Michael Taylor</a>
+				<a class="dropdown-item drop-player" id = "Mickey Callaway" onclick='filterPicked("Mickey Callaway" )'>Mickey Callaway</a>
+				<a class="dropdown-item drop-player" id = "Mickey Hatcher" onclick='filterPicked("Mickey Hatcher" )'>Mickey Hatcher</a>
+				<a class="dropdown-item drop-player" id = "Miguel Andujar" onclick='filterPicked("Miguel Andujar" )'>Miguel Andujar</a>
+				<a class="dropdown-item drop-player" id = "Miguel Cabrera" onclick='filterPicked("Miguel Cabrera" )'>Miguel Cabrera</a>
+				<a class="dropdown-item drop-player" id = "Miguel Rojas" onclick='filterPicked("Miguel Rojas" )'>Miguel Rojas</a>
+				<a class="dropdown-item drop-player" id = "Miguel Sano" onclick='filterPicked("Miguel Sano" )'>Miguel Sano</a>
+				<a class="dropdown-item drop-player" id = "Mike Brosseau" onclick='filterPicked("Mike Brosseau" )'>Mike Brosseau</a>
+				<a class="dropdown-item drop-player" id = "Mike Fiers" onclick='filterPicked("Mike Fiers" )'>Mike Fiers</a>
+				<a class="dropdown-item drop-player" id = "Mike Foltynewicz" onclick='filterPicked("Mike Foltynewicz" )'>Mike Foltynewicz</a>
+				<a class="dropdown-item drop-player" id = "Mike Ford" onclick='filterPicked("Mike Ford" )'>Mike Ford</a>
+				<a class="dropdown-item drop-player" id = "Mike Montgomery" onclick='filterPicked("Mike Montgomery" )'>Mike Montgomery</a>
+				<a class="dropdown-item drop-player" id = "Mike Scioscia" onclick='filterPicked("Mike Scioscia" )'>Mike Scioscia</a>
+				<a class="dropdown-item drop-player" id = "Mike Shildt " onclick='filterPicked("Mike Shildt " )'>Mike Shildt </a>
+				<a class="dropdown-item drop-player" id = "Mike Tauchman" onclick='filterPicked("Mike Tauchman" )'>Mike Tauchman</a>
+				<a class="dropdown-item drop-player" id = "Mike Trout" onclick='filterPicked("Mike Trout" )'>Mike Trout</a>
+				<a class="dropdown-item drop-player" id = "Miles Mikolas" onclick='filterPicked("Miles Mikolas" )'>Miles Mikolas</a>
+				<a class="dropdown-item drop-player" id = "Mookie Betts" onclick='filterPicked("Mookie Betts" )'>Mookie Betts</a>
+				<a class="dropdown-item drop-player" id = "Ned Yost" onclick='filterPicked("Ned Yost" )'>Ned Yost</a>
+				<a class="dropdown-item drop-player" id = "Neil Walker" onclick='filterPicked("Neil Walker" )'>Neil Walker</a>
+				<a class="dropdown-item drop-player" id = "Nick Hundley" onclick='filterPicked("Nick Hundley" )'>Nick Hundley</a>
+				<a class="dropdown-item drop-player" id = "Nick Martini" onclick='filterPicked("Nick Martini" )'>Nick Martini</a>
+				<a class="dropdown-item drop-player" id = "Nick Senzel" onclick='filterPicked("Nick Senzel" )'>Nick Senzel</a>
+				<a class="dropdown-item drop-player" id = "Nick Solak" onclick='filterPicked("Nick Solak" )'>Nick Solak</a>
+				<a class="dropdown-item drop-player" id = "Noah Syndergaard" onclick='filterPicked("Noah Syndergaard" )'>Noah Syndergaard</a>
+				<a class="dropdown-item drop-player" id = "Nolan Arenado" onclick='filterPicked("Nolan Arenado" )'>Nolan Arenado</a>
+				<a class="dropdown-item drop-player" id = "Nolan Ryan" onclick='filterPicked("Nolan Ryan" )'>Nolan Ryan</a>
+				<a class="dropdown-item drop-player" id = "Norm Charlton" onclick='filterPicked("Norm Charlton" )'>Norm Charlton</a>
+				<a class="dropdown-item drop-player" id = "Ozzie Albies" onclick='filterPicked("Ozzie Albies" )'>Ozzie Albies</a>
+				<a class="dropdown-item drop-player" id = "Ozzie Smith" onclick='filterPicked("Ozzie Smith" )'>Ozzie Smith</a>
+				<a class="dropdown-item drop-player" id = "Pablo Sandoval" onclick='filterPicked("Pablo Sandoval" )'>Pablo Sandoval</a>
+				<a class="dropdown-item drop-player" id = "Pascual Perez" onclick='filterPicked("Pascual Perez" )'>Pascual Perez</a>
+				<a class="dropdown-item drop-player" id = "Patrick Conley" onclick='filterPicked("Patrick Conley" )'>Patrick Conley</a>
+				<a class="dropdown-item drop-player" id = "Paul Goldschmidt" onclick='filterPicked("Paul Goldschmidt" )'>Paul Goldschmidt</a>
+				<a class="dropdown-item drop-player" id = "Paul Wilson" onclick='filterPicked("Paul Wilson" )'>Paul Wilson</a>
+				<a class="dropdown-item drop-player" id = "Pedro Martinez" onclick='filterPicked("Pedro Martinez" )'>Pedro Martinez</a>
+				<a class="dropdown-item drop-player" id = "Pedro Strop" onclick='filterPicked("Pedro Strop" )'>Pedro Strop</a>
+				<a class="dropdown-item drop-player" id = "Pete Alonso" onclick='filterPicked("Pete Alonso" )'>Pete Alonso</a>
+				<a class="dropdown-item drop-player" id = "Pete Rose" onclick='filterPicked("Pete Rose" )'>Pete Rose</a>
+				<a class="dropdown-item drop-player" id = "Rafael Devers" onclick='filterPicked("Rafael Devers" )'>Rafael Devers</a>
+				<a class="dropdown-item drop-player" id = "Rajai Davis" onclick='filterPicked("Rajai Davis" )'>Rajai Davis</a>
+				<a class="dropdown-item drop-player" id = "Ramon Laureano" onclick='filterPicked("Ramon Laureano" )'>Ramon Laureano</a>
+				<a class="dropdown-item drop-player" id = "Randy Johnson" onclick='filterPicked("Randy Johnson" )'>Randy Johnson</a>
+				<a class="dropdown-item drop-player" id = "Reggie Sanders" onclick='filterPicked("Reggie Sanders" )'>Reggie Sanders</a>
+				<a class="dropdown-item drop-player" id = "Rhys Hoskins" onclick='filterPicked("Rhys Hoskins" )'>Rhys Hoskins</a>
+				<a class="dropdown-item drop-player" id = "Rich Hill" onclick='filterPicked("Rich Hill" )'>Rich Hill</a>
+				<a class="dropdown-item drop-player" id = "Rick Porcello" onclick='filterPicked("Rick Porcello" )'>Rick Porcello</a>
+				<a class="dropdown-item drop-player" id = "Robin Ventura" onclick='filterPicked("Robin Ventura" )'>Robin Ventura</a>
+				<a class="dropdown-item drop-player" id = "Rollie Fingers" onclick='filterPicked("Rollie Fingers" )'>Rollie Fingers</a>
+				<a class="dropdown-item drop-player" id = "Ron Gardenhire" onclick='filterPicked("Ron Gardenhire" )'>Ron Gardenhire</a>
+				<a class="dropdown-item drop-player" id = "Ronald Acuna Jr" onclick='filterPicked("Ronald Acuna Jr" )'>Ronald Acuna Jr</a>
+				<a class="dropdown-item drop-player" id = "Rougned Odor" onclick='filterPicked("Rougned Odor" )'>Rougned Odor</a>
+				<a class="dropdown-item drop-player" id = "Ruben Tejada" onclick='filterPicked("Ruben Tejada" )'>Ruben Tejada</a>
+				<a class="dropdown-item drop-player" id = "Russell Martin" onclick='filterPicked("Russell Martin" )'>Russell Martin</a>
+				<a class="dropdown-item drop-player" id = "Ryan McMahon" onclick='filterPicked("Ryan McMahon" )'>Ryan McMahon</a>
+				<a class="dropdown-item drop-player" id = "Ryan Zimmerman" onclick='filterPicked("Ryan Zimmerman" )'>Ryan Zimmerman</a>
+				<a class="dropdown-item drop-player" id = "Sammy Sosa" onclick='filterPicked("Sammy Sosa" )'>Sammy Sosa</a>
+				<a class="dropdown-item drop-player" id = "Scott Kingery" onclick='filterPicked("Scott Kingery" )'>Scott Kingery</a>
+				<a class="dropdown-item drop-player" id = "Sean Doolittle" onclick='filterPicked("Sean Doolittle" )'>Sean Doolittle</a>
+				<a class="dropdown-item drop-player" id = "Shane Bieber" onclick='filterPicked("Shane Bieber" )'>Shane Bieber</a>
+				<a class="dropdown-item drop-player" id = "Shin-Soo Choo" onclick='filterPicked("Shin-Soo Choo" )'>Shin-Soo Choo</a>
+				<a class="dropdown-item drop-player" id = "Shohei Ohtani" onclick='filterPicked("Shohei Ohtani" )'>Shohei Ohtani</a>
+				<a class="dropdown-item drop-player" id = "Sonny Gray" onclick='filterPicked("Sonny Gray" )'>Sonny Gray</a>
+				<a class="dropdown-item drop-player" id = "Starling Marte" onclick='filterPicked("Starling Marte" )'>Starling Marte</a>
+				<a class="dropdown-item drop-player" id = "Stephen Strasburg" onclick='filterPicked("Stephen Strasburg" )'>Stephen Strasburg</a>
+				<a class="dropdown-item drop-player" id = "Steve Wilkerson" onclick='filterPicked("Steve Wilkerson" )'>Steve Wilkerson</a>
+				<a class="dropdown-item drop-player" id = "Taylor Davis" onclick='filterPicked("Taylor Davis" )'>Taylor Davis</a>
+				<a class="dropdown-item drop-player" id = "Terry Collins" onclick='filterPicked("Terry Collins" )'>Terry Collins</a>
+				<a class="dropdown-item drop-player" id = "Tim Anderson" onclick='filterPicked("Tim Anderson" )'>Tim Anderson</a>
+				<a class="dropdown-item drop-player" id = "Tim Locastro" onclick='filterPicked("Tim Locastro" )'>Tim Locastro</a>
+				<a class="dropdown-item drop-player" id = "Tino Martinez" onclick='filterPicked("Tino Martinez" )'>Tino Martinez</a>
+				<a class="dropdown-item drop-player" id = "Todd Frazier" onclick='filterPicked("Todd Frazier" )'>Todd Frazier</a>
+				<a class="dropdown-item drop-player" id = "Tom Murphy" onclick='filterPicked("Tom Murphy" )'>Tom Murphy</a>
+				<a class="dropdown-item drop-player" id = "Tommy Kahnle" onclick='filterPicked("Tommy Kahnle" )'>Tommy Kahnle</a>
+				<a class="dropdown-item drop-player" id = "Tommy La Stella" onclick='filterPicked("Tommy La Stella" )'>Tommy La Stella</a>
+				<a class="dropdown-item drop-player" id = "Tony Kemp" onclick='filterPicked("Tony Kemp" )'>Tony Kemp</a>
+				<a class="dropdown-item drop-player" id = "Torey Luvollo" onclick='filterPicked("Torey Luvollo" )'>Torey Luvollo</a>
+				<a class="dropdown-item drop-player" id = "Trea Turner" onclick='filterPicked("Trea Turner" )'>Trea Turner</a>
+				<a class="dropdown-item drop-player" id = "Trevor Bauer" onclick='filterPicked("Trevor Bauer" )'>Trevor Bauer</a>
+				<a class="dropdown-item drop-player" id = "Trevor Story" onclick='filterPicked("Trevor Story" )'>Trevor Story</a>
+				<a class="dropdown-item drop-player" id = "Tris Speaker" onclick='filterPicked("Tris Speaker" )'>Tris Speaker</a>
+				<a class="dropdown-item drop-player" id = "Tyler Austin" onclick='filterPicked("Tyler Austin" )'>Tyler Austin</a>
+				<a class="dropdown-item drop-player" id = "Tyler Duffey" onclick='filterPicked("Tyler Duffey" )'>Tyler Duffey</a>
+				<a class="dropdown-item drop-player" id = "Tyler Flowers" onclick='filterPicked("Tyler Flowers" )'>Tyler Flowers</a>
+				<a class="dropdown-item drop-player" id = "Tyler Glasnow" onclick='filterPicked("Tyler Glasnow" )'>Tyler Glasnow</a>
+				<a class="dropdown-item drop-player" id = "Tyler Wade" onclick='filterPicked("Tyler Wade" )'>Tyler Wade</a>
+				<a class="dropdown-item drop-player" id = "Victor Robles" onclick='filterPicked("Victor Robles" )'>Victor Robles</a>
+				<a class="dropdown-item drop-player" id = "Vince Velasquez" onclick='filterPicked("Vince Velasquez" )'>Vince Velasquez</a>
+				<a class="dropdown-item drop-player" id = "Vladimir Guerrero Jr." onclick='filterPicked("Vladimir Guerrero Jr." )'>Vladimir Guerrero Jr.</a>
+				<a class="dropdown-item drop-player" id = "Will Clark" onclick='filterPicked("Will Clark" )'>Will Clark</a>
+				<a class="dropdown-item drop-player" id = "Will Smith" onclick='filterPicked("Will Smith" )'>Will Smith</a>
+				<a class="dropdown-item drop-player" id = "Willson Contreras" onclick='filterPicked("Willson Contreras" )'>Willson Contreras</a>
+				<a class="dropdown-item drop-player" id = "Xander Bogaerts" onclick='filterPicked("Xander Bogaerts" )'>Xander Bogaerts</a>
+				<a class="dropdown-item drop-player" id = "Yadier Molina" onclick='filterPicked("Yadier Molina" )'>Yadier Molina</a>
+				<a class="dropdown-item drop-player" id = "Yandy Diaz" onclick='filterPicked("Yandy Diaz" )'>Yandy Diaz</a>
+				<a class="dropdown-item drop-player" id = "Yasiel Puig" onclick='filterPicked("Yasiel Puig" )'>Yasiel Puig</a>
+				<a class="dropdown-item drop-player" id = "Yasmani Grandal" onclick='filterPicked("Yasmani Grandal" )'>Yasmani Grandal</a>
+				<a class="dropdown-item drop-player" id = "Yimi Garcia" onclick='filterPicked("Yimi Garcia" )'>Yimi Garcia</a>
+				<a class="dropdown-item drop-player" id = "Yogi Berra" onclick='filterPicked("Yogi Berra" )'>Yogi Berra</a>
+				<a class="dropdown-item drop-player" id = "Yordan Alvarez" onclick='filterPicked("Yordan Alvarez" )'>Yordan Alvarez</a>
+				<a class="dropdown-item drop-player" id = "Yu Darvish" onclick='filterPicked("Yu Darvish" )'>Yu Darvish</a>
+				<a class="dropdown-item drop-player" id = "Yuli Gurriel" onclick='filterPicked("Yuli Gurriel" )'>Yuli Gurriel</a>
+				<a class="dropdown-item drop-player" id = "Yusei Kikuchi" onclick='filterPicked("Yusei Kikuchi" )'>Yusei Kikuchi</a>
+				<a class="dropdown-item drop-player" id = "Zack Collins" onclick='filterPicked("Zack Collins" )'>Zack Collins</a>
+				<a class="dropdown-item drop-player" id = "Zack Greinke" onclick='filterPicked("Zack Greinke" )'>Zack Greinke</a>
+				<a class="dropdown-item drop-player" id = "Zack Littell" onclick='filterPicked("Zack Littell" )'>Zack Littell</a>
+				<a class="dropdown-item drop-player" id = "Zack Wheeler" onclick='filterPicked("Zack Wheeler" )'>Zack Wheeler</a>
+			  </div>
+			</div>
+
+						<div class="btn-group">
+			  <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  	 <span class="caret">Umpires</span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu" id="filterDropdown">
+				<a class="dropdown-item drop-umpire" id = "Angel Hernandez" onclick='filterPicked("Angel Hernandez" )'>Angel Hernandez</a>
+				<a class="dropdown-item drop-umpire" id = "Joe West" onclick='filterPicked("Joe West" )'>Joe West</a>
+				<a class="dropdown-item drop-umpire" id = "Mike Estabrook" onclick='filterPicked("Mike Estabrook" )'>Mike Estabrook</a>
+				<a class="dropdown-item drop-umpire" id = "Ron Kulpa" onclick='filterPicked("Ron Kulpa" )'>Ron Kulpa</a>
+			  </div>
+			</div>
+
+			<div class="btn-group">
+			  <button type="button" class="btn btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  	 <span class="caret">Game Year</span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu" id="filterDropdown">
+				<a class="dropdown-item drop-year" id = "1920" onclick='filterPicked("1920" )'>1920</a>
+				<a class="dropdown-item drop-year" id = "1924" onclick='filterPicked("1924" )'>1924</a>
+				<a class="dropdown-item drop-year" id = "1973" onclick='filterPicked("1973" )'>1973</a>
+				<a class="dropdown-item drop-year" id = "1977" onclick='filterPicked("1977" )'>1977</a>
+				<a class="dropdown-item drop-year" id = "1980" onclick='filterPicked("1980" )'>1980</a>
+				<a class="dropdown-item drop-year" id = "1984" onclick='filterPicked("1984" )'>1984</a>
+				<a class="dropdown-item drop-year" id = "1985" onclick='filterPicked("1985" )'>1985</a>
+				<a class="dropdown-item drop-year" id = "1990" onclick='filterPicked("1990" )'>1990</a>
+				<a class="dropdown-item drop-year" id = "1992" onclick='filterPicked("1992" )'>1992</a>
+				<a class="dropdown-item drop-year" id = "1993" onclick='filterPicked("1993" )'>1993</a>
+				<a class="dropdown-item drop-year" id = "1994" onclick='filterPicked("1994" )'>1994</a>
+				<a class="dropdown-item drop-year" id = "1995" onclick='filterPicked("1995" )'>1995</a>
+				<a class="dropdown-item drop-year" id = "1996" onclick='filterPicked("1996" )'>1996</a>
+				<a class="dropdown-item drop-year" id = "1998" onclick='filterPicked("1998" )'>1998</a>
+				<a class="dropdown-item drop-year" id = "1999" onclick='filterPicked("1999" )'>1999</a>
+				<a class="dropdown-item drop-year" id = "2000" onclick='filterPicked("2000" )'>2000</a>
+				<a class="dropdown-item drop-year" id = "2003" onclick='filterPicked("2003" )'>2003</a>
+				<a class="dropdown-item drop-year" id = "2004" onclick='filterPicked("2004" )'>2004</a>
+				<a class="dropdown-item drop-year" id = "2006" onclick='filterPicked("2006" )'>2006</a>
+				<a class="dropdown-item drop-year" id = "2009" onclick='filterPicked("2009" )'>2009</a>
+				<a class="dropdown-item drop-year" id = "2010" onclick='filterPicked("2010" )'>2010</a>
+				<a class="dropdown-item drop-year" id = "2011" onclick='filterPicked("2011" )'>2011</a>
+				<a class="dropdown-item drop-year" id = "2014" onclick='filterPicked("2014" )'>2014</a>
+				<a class="dropdown-item drop-year" id = "2015" onclick='filterPicked("2015" )'>2015</a>
+				<a class="dropdown-item drop-year" id = "2016" onclick='filterPicked("2016" )'>2016</a>
+				<a class="dropdown-item drop-year" id = "2017" onclick='filterPicked("2017" )'>2017</a>
+				<a class="dropdown-item drop-year" id = "2018" onclick='filterPicked("2018" )'>2018</a>
+				<a class="dropdown-item drop-year" id = "2019" onclick='filterPicked("2019" )'>2018</a>
+				<a class="dropdown-item drop-year" id = "2020" onclick='filterPicked("2020" )'>2020</a>
+			  </div>
+			</div>
+
+			<button type="button" class="btn btn-danger btn-sm" id="Brawl" onclick="filterButton('Brawl')">Brawls</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Fight" onclick="filterButton('Fight')">Fights</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Ejection" onclick="filterButton('Ejection')">Ejections</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Hit By Pitch" onclick="filterButton('Hit By Pitch')">Hit By Pitch</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Bad Call" onclick="filterButton('Bad Call')">Bad Calls</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Error" onclick="filterButton('Error')">Errors</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Balk" onclick="filterButton('Balk')">Balks</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Collision" onclick="filterButton('Collision')">Collisions</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Double Play" onclick="filterButton('Double Play')">Double Plays</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Perfect Game" onclick="filterButton('Perfect Game')">Perfect Games</button>
+			<button type="button" class="btn btn-danger btn-sm" id="No-Hitter" onclick="filterButton('No-Hitter')">No-Hitters</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Stolen Base" onclick="filterButton('Stolen Base')">Stolen Bases</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Home Run" onclick="filterButton('Home Run')">Home Runs</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Grand Slam" onclick="filterButton('Grand Slam')">Grand Slams</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Walk-Off" onclick="filterButton('Walk-Off')">Walk-Offs</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Robbed Home Run" onclick="filterButton('Robbed Home Run')">Robbed Home Runs</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Animals" onclick="filterButton('Animals')">Animals</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Lip Reading" onclick="filterButton('Lip Reading')">Lip Reading</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Hot Mic" onclick="filterButton('Hot Mic')">Hot Mic</button>
+			<button type="button" class="btn btn-danger btn-sm" id="NL" onclick="filterButton('NL')">NL</button>
+			<button type="button" class="btn btn-danger btn-sm" id="AL" onclick="filterButton('AL')">AL</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Playoffs" onclick="filterButton('Playoffs')">Playoffs</button>
+			<button type="button" class="btn btn-danger btn-sm" id="World Series" onclick="filterButton('World Series')">World Series</button>
+			<button type="button" class="btn btn-danger btn-sm" id="Fun Sport Friday" onclick="filterButton('Fun Sport Friday')">Fun Sport Friday</button>
+			<div id="bonusButtons"></div>
+			</h4>
+
+		</div>
+		<div class="col-lg-6">
+			<h4 style="text-align:left;">Sort By:
+			<button type="button" class="btn btn-success btn-sm" id="sort-0" onclick="setSort(0);">Alphabetical</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-1" onclick="setSort(1);">Reverse Alphabetical</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-2" onclick="setSort(2);">Newest Date Uploaded</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-3" onclick="setSort(3);">Oldest Date Uploaded</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-4" onclick="setSort(4);">Newest Game Date</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-5" onclick="setSort(5);">Oldest Game Date</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-6" onclick="setSort(6);">Most Viewed</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-7" onclick="setSort(7);">Least Viewed</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-8" onclick="setSort(8);">Most Liked</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-9" onclick="setSort(9);">Least Liked</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-10" onclick="setSort(10);">Most Disliked</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-11" onclick="setSort(11);">Least Disliked</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-12" onclick="setSort(12);">Most Comments</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-13" onclick="setSort(13);">Least Comments</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-14" onclick="setSort(14);">Longest Video</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-15" onclick="setSort(15);">Shortest Video</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-16" onclick="setSort(16);">Best Like/Dislike Ratio</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-17" onclick="setSort(17);">Worst Like/Dislike Ratio</button>
+			</h4>
+		</div>
+
+		<div class="col-lg-6" style="text-align:left;">
+			<h4 style="text-align:left;">Inclusive vs Exclusive:</h4>
+				<button type="button" id="exclusive" class="btn btn-success btn-sm" style="transform:translateY(-3px)" onclick="setFilterType(0)">Exclusive</button> At least one of the tags will be present<br>
+				<button type="button" id="inclusive" class="btn btn-danger btn-sm" style="transform:translateY(-4px)" onclick="setFilterType(1)">Inclusive</button> All tags will be present<br>
+		</div>
+		<div class="col-lg-6 col-xs-12 form-group">
+			For quicker load times, choose to show clickable thumbnails or links instead of videos<br>
+				<button type="button" class="btn btn-success btn-sm" onclick="changeLoad(1);" id="media-1">Video</button>
+				<button type="button" class="btn btn-danger btn-sm" onclick="changeLoad(2);" id="media-2">Thumbnail</button>
+				<button type="button" class="btn btn-danger btn-sm" onclick="changeLoad(3);" id="media-3">Link</button>
+		</div>
+
+		<div class="col-lg-6">
+			<h5><a id="total-results">496</a> Results Found. Showing
+
+			<div class="btn-group">
+			  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			  	 <span id="page-select" class="caret">5</span>
+			    <span class="sr-only">Toggle Dropdown</span>
+			  </button>
+			  <div class="dropdown-menu" id="pageAmount">
+			  	<a class="dropdown-item" onclick="setPageSize(1)">1</a>
+			    <a class="dropdown-item" onclick="setPageSize(5)">5</a>
+			    <a class="dropdown-item" onclick="setPageSize(10)">10</a>
+			    <a class="dropdown-item" onclick="setPageSize(15)">15</a>
+			    <a class="dropdown-item" onclick="setPageSize(20)">20</a>
+			    <a class="dropdown-item" onclick="setPageSize(50)">50</a>
+			    <a class="dropdown-item" onclick="setPageSize(100)">100</a>
+			  </div>
+			</div>
+			results per page.</h5> 
+		</div>
+
+		<div class="col-lg-6">
+			<h4>Search:
+				<input id="searchBox" type="text" aria-describedby="emailHelp" onkeyup="newSearch()"></input></h4> </div>
+
+
+		<div class="col-lg-12">
+			<button type="button" class="btn btn-danger btn-lg" id="previous-button" onclick="lastPage();">Previous Page</button>
+			<button type="button" class="btn btn-success btn-lg" id="next-button"onclick="nextPage();">Next Page</button><br>
+
+			<table class="table table-striped table-dark">
+			  <thead>
+			    <tr class="d-flex">
+				    <th class="col-1">#</th>
+				    <th class="col-5">Video</th>
+				    <th class="col-3">Title</th>
+				    <th class="col-3" id="sort-val">Views</th>
+			    </tr>
+			  </thead>
+			  <tbody id="table-body">
+			  </tbody>
+			</table>
+
+			<button type="button" class="btn btn-danger btn-lg" id="previous-button-2" onclick="lastPage();">Previous Page</button>
+			<button type="button" class="btn btn-success btn-lg" id="next-button-2"onclick="nextPage();">Next Page</button>
+			<p id="current-page">Showing Page of 1 of 100</p>
+		</div>
+</div>
+</div>
+
+<hr class="my-4">
+<!--- Fixed background -->
+<figure>
+	<div class="fixed-wrap">
+		<div id="fixed">
+		</div>
+	</div>
+</figure>
+
+<!--- Connect -->
+<div class="container-fluid">
+	<div class="row text-center padding">
+		<div class="col-12">
+			<h2>Connect With Me</h2>
+			<p>Have any feedback or suggestions for new filters or ways to sort? Let me know!</p>
+		</div>
+		<div class="col-12 social padding">
+			<a href="https://www.facebook.com/jaymoneykramer/"><i class="fab fa-github"></i></a>
+			<a href="https://www.facebook.com/jaymoneykramer/"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+			<a href="https://www.instagram.com/jasonkramerr/"><i class ="fab fa-instagram"></i></a>
+			<a href="mailto:jason.breakdownify@gmail.com"><i class ="fa fa-envelope" style="color:gray"></i></a>
+		</div>
+	</div>
+</div>
+
+<!--- Footer -->
+<footer>
+	<div class="container-fluid padding">
+		<div class="row text-center">
+			<div class="col-md-4">
+				<img src="img/BreakdownifyInverted.png">
+				<hr class="light">
+				Created by Jason Kramer
+				<div class="jomboymedia">
+					<a href="https://github.com/JasonKramer525" target="_blank"><i class="fab fa-github"></i></a>
+					<a href="https://www.linkedin.com/in/jasonkramerr/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+					<a href="https://www.instagram.com/jasonkramerr/" target="_blank"><i class ="fab fa-instagram"></i></a>
+					<a href="mailto:jason.breakdownify@gmail.com"><i class ="fa fa-envelope"></i></a>
+				</div>
+				<a href="mailto:jason.breakdownify@gmail.com">jason.breakdownify@gmail.com</a>
+			</div>
+			<div class="col-md-4">
+				<img src="img/jm-media.png" style="height:64px; width:150px">
+				<hr class="light">
+				Follow Jomboy Media on social media!
+				<div class="jomboymedia">
+					<a href="https://www.facebook.com/JomboyMedia/" target="_blank"><i class ="fab fa-facebook"></i></a>
+					<a href="https://www.instagram.com/jomboymedia/" target="_blank"><i class ="fab fa-instagram"></i></a>
+					<a href="https://twitter.com/jomboymedia" target="_blank"><i class ="fab fa-twitter"></i></a>
+					<a href="https://www.youtube.com/user/phshockey12" target="_blank"><i class ="fab fa-youtube"></i></a>
+				</div>
+				<a href="https://jomboymedia.com/" target="_blank">jomboymedia.com/</a>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Site Map</h5>
+				<hr class="light">
+				<a href="index"><p>Home</p></a>
+				<a href="93mph"><p>93 MPH Scoreboard</p></a>
+				<a href="howitsmade"><p>How It Was Made</p></a>
+				<a href="contact"><p>Connect</p></a>
+			</div>
+			<div class="col-12">
+				<hr class="light-100">
+				<h5>&copy; breakdownify.club</h5>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171065195-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171065195-1');
+</script>
+
+
+
+</body>
+</html>
+
+

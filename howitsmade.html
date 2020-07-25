@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Breakdownify</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="style.css" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="index"><img src="img/BreakdownifyHeader.png"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"</span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="index">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="93mph">93 MPH Scoreboard</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="howitsmade">How It Was Made</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="contact">Connect</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<br><br>
+		<h1 style="color:red; text-align:center">Breakdownify, a breakdown</h1><hr>
+
+<div class="container-fluid padding">
+<div class="row padding">
+		<div class="col-lg-12 text-center">
+			<h5>In Jomboy fashion, I am going to do a breakdown of how I made the website and the scripts I used to gather data. I am a student studying Computer Science and have been doing various projects this summer that combine my interests outside of Computer Science with programming. My goal of creating this website was to get more experience with HTML, CSS, JS, Bootstrap, Web Scraping and using various APIs as well as to provide interesting ways to sort and filter Jomboy's videos.</h5>
+						<br><h2 style="text-align:center">Jomboy Search Engine Breakdown (in progress)</h2><hr>
+						<br><h2 style="text-align:center">93 MPH Scoreboard Breakdown</h2><hr>
+
+		</div>
+	<div class="col-lg-6">
+		<h2>Web Scraping Script</h2>
+		<h5 class="align-middle">Using Python with the help of selenium, pandas, xlrd and openpyxl, I wrote a script that goes to a specified Instagram post in a Chrome browser and expands the comments as far as it can. From the post, video or IGTV, it gathers the poster's name, comment and time posted for each comment by searching through the HTML. All of this data is stored in a CSV</h5>
+		<br>
+	</div>
+	<div class="col-lg-6">
+		<img src="img/web-scrape.png" class="img-fluid"></img>
+	</div>
+</div>
+</div>
+
+<div class="container-fluid padding">
+<div class="row padding">
+	<div class="col-lg-6">
+		<img src="img/python-code.png" class="img-fluid"></img>
+	</div>
+	<div class="col-lg-6">
+		<h2>Data Gathering Script</h2>
+		<h5 class="align-middle">I created another Python script for gathering the data together from multiple CSVs. Instagram timestamps are stored in a special format called ISO 8601 time. Because this format is difficult to work with, I convert them into a more managable timestamp. Using the datetime python library, I split up each timestamp into second, minute, hour, day, etc. and made it into a datetime object. I did the same for the original timestamp Jomboy Media made the post. Then, I subtract the commenter's datetime from Jomboy Media's datetime to get the difference in seconds between the response and the post. If it's 93 seconds or less, then it qualifies for the 93 MPH Club.</h5>
+		<br>
+	</div>
+
+</div>
+</div>
+
+<div class="container-fluid padding">
+<div class="row padding">
+	<div class="col-lg-6">
+		<h5 class="align-middle">After I have the new list of usernames and the seconds taken to respond, I check for multiple responses from the same person on a single post. If they respond multiple times, then I keep their lowest time and remove the others. </h5>
+		<br>
+	</div>
+		<div class="col-lg-6">
+		<img src="img/overlapping-users.png" class="img-fluid"></img>
+	</div>
+
+</div>
+</div>
+
+<div class="container-fluid padding">
+<div class="row padding">
+	<div class="col-lg-6">
+		<img src="img/old-data.png" class="img-fluid"></img>
+	</div>
+	<div class="col-lg-6">
+		<h5 class="align-middle">Now that I have the unique usernames for the new post, I read in the CSV that contains the previous data from all other posts. Again, I check for overlap, this time between usernames in the new and old tables. If there is any overlap, then I want to combine the data. If not, then it gets added as a new row. If there is a user from the full table that isn't in the new post table, then it gets copied over directly into the new full table. </h5>
+		<h5>The data I track includes the username, the total amount of posts they have, how many times they posted within the first 93 seconds, their best response time, their worst response time, their average response time and the nearest miss they had from posting within 93 seconds.</h5>
+		<br>
+	</div>
+
+</div>
+</div>
+
+
+<!--- Footer -->
+<footer>
+	<div class="container-fluid padding">
+		<div class="row text-center">
+			<div class="col-md-4">
+				<img src="img/BreakdownifyInverted.png">
+				<hr class="light">
+				Created by Jason Kramer
+				<div class="jomboymedia">
+					<a href="https://github.com/JasonKramer525" target="_blank"><i class="fab fa-github"></i></a>
+					<a href="https://www.linkedin.com/in/jasonkramerr/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+					<a href="https://www.instagram.com/jasonkramerr/" target="_blank"><i class ="fab fa-instagram"></i></a>
+					<a href="mailto:jason.breakdownify@gmail.com"><i class ="fa fa-envelope"></i></a>
+				</div>
+				<a href="mailto:jason.breakdownify@gmail.com">jason.breakdownify@gmail.com</a>
+			</div>
+			<div class="col-md-4">
+				<img src="img/jm-media.png" style="height:64px; width:150px">
+				<hr class="light">
+				Follow Jomboy Media on social media!
+				<div class="jomboymedia">
+					<a href="https://www.facebook.com/JomboyMedia/" target="_blank"><i class ="fab fa-facebook"></i></a>
+					<a href="https://www.instagram.com/jomboymedia/" target="_blank"><i class ="fab fa-instagram"></i></a>
+					<a href="https://twitter.com/jomboymedia" target="_blank"><i class ="fab fa-twitter"></i></a>
+					<a href="https://www.youtube.com/user/phshockey12" target="_blank"><i class ="fab fa-youtube"></i></a>
+				</div>
+				<a href="https://jomboymedia.com/" target="_blank">jomboymedia.com/</a>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Site Map</h5>
+				<hr class="light">
+				<a href="index"><p>Home</p></a>
+				<a href="93mph"><p>93 MPH Scoreboard</p></a>
+				<a href="howitsmade"><p>How It Was Made</p></a>
+				<a href="contact"><p>Connect</p></a>
+			</div>
+			<div class="col-12">
+				<hr class="light-100">
+				<h5>&copy; breakdownify.club</h5>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171065195-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171065195-1');
+</script>
+
+</body>
+</html>
+
+

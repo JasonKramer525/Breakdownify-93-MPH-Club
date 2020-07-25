@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Breakdownify</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="icon" href="img/BreakdownifyIcon.png">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="style.css" rel="stylesheet">
+	<script type="text/javascript" src="mphdata.js"></script>
+
+
+<!-- <link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
+</head>
+<body onLoad="onLoad();">
+
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="index"><img src="img/BreakdownifyHeader.png"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"</span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="index">Home</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="93mph">93 MPH Scoreboard</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="howitsmade">How It Was Made</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="contact">Connect</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container-fluid padding" id="mobile" hidden="true">
+<div class="welcome text-center">
+	<h5 style="text-align:center">Please view the site on dekstop. It is currently under construction for mobile!</h5>
+
+</div></div>
+
+
+<div id="desktop">
+
+<div class="container-fluid padding">
+<div class="row welcome text-center">
+
+	<div class="col-12">
+		<h1 class="display-4">93 MPH Club Scoreboard</h1>
+		<hr>
+		<p class="lead">The 93 MPH Club is Jomboy Media's competition they run weekly on Instagram. If you respond to one of their posts within the 
+		first 93 seconds, you get an entry into their weekly giveaway. Using a Web Scraper to scrape data from Instagram and with the help of a Python script,
+		below are this week's statistics for the 93 MPH Club</p>
+		<br>
+	</div>
+
+	<div class="col-3"><img src="img/93MPH.jpg" style="width:100%; display:block;"><br><br></div>
+	<div class="col-9">		<h4>View each week's standings below. Stats that are tracked are total posts (1 per post max), posts that are within the 93 second mark, best response time, worst response time, average response time and the closest miss to being within the 93 second mark.</h4>
+		<h4>If you commented multiple times on a post, then only your quickest response time on that post is counted. </h4></div>
+</div>
+
+<div class="container">
+	<div class="row text-center ">
+	<div class="col-6">
+		<h4 style="text-align:left;">Sort By: 
+			<button type="button" class="btn btn-success btn-sm" id="sort-0" onclick="chooseSort(0);">Most Posts in 93 Seconds</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-1" onclick="chooseSort(1);">Total Posts</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-2" onclick="chooseSort(2);">Best Response Time</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-3" onclick="chooseSort(3);">Worst Response Time</button>
+			<button type="button" class="btn btn-danger btn-sm" id="sort-4" onclick="chooseSort(4);">Best Average Time</button>
+		</h4>
+	</div>
+
+		<div class="col-6">
+			<h4>Search:
+		<input id="searchBox" type="text" aria-describedby="emailHelp" onkeyup="newSearch()"></input></h4> </div>
+
+		<div class="col-12">
+			<h4>Select Week:
+				<button type="button" class="btn btn-success btn-lg" id="table-2" onclick="chooseTable(2);">Week of 7/6 - 7/12</button>
+				<button type="button" class="btn btn-danger btn-lg" id="table-0" onclick="chooseTable(0);">Week of 6/29 - 7/5</button>
+				<button type="button" class="btn btn-danger btn-lg" id="table-1" onclick="chooseTable(1);">Week of 6/22 - 6/28</button>
+			</h4>
+		</div>
+</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row welcome text-center">
+	<div class="col-12">
+		<table class="table table-striped table-dark">
+			  <thead>
+			    <tr class="d-flex">
+				    <th class="col-3">Username</th>
+					<th class="col-2">93 MPH Posts</th>
+				    <th class="col-2">Total Posts</th>
+				    <th class="col-2">Best Time</th>
+				    <th class="col-1">Worst Time</th>
+				    <th class="col-1">Average Time</th>
+				    <th class="col-1">Nearest Miss</th>
+
+			    </tr>
+			  </thead>
+			  <tbody id="table-body">
+			  </tbody>
+		</table>
+
+	</div>
+	</div>
+</div>
+
+</div>
+<!--- Footer -->
+<footer>
+	<div class="container-fluid padding">
+		<div class="row text-center">
+			<div class="col-md-4">
+				<img src="img/BreakdownifyInverted.png">
+				<hr class="light">
+				Created by Jason Kramer
+				<div class="jomboymedia">
+					<a href="https://github.com/JasonKramer525" target="_blank"><i class="fab fa-github"></i></a>
+					<a href="https://www.linkedin.com/in/jasonkramerr/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+					<a href="https://www.instagram.com/jasonkramerr/" target="_blank"><i class ="fab fa-instagram"></i></a>
+					<a href="mailto:jason.breakdownify@gmail.com"><i class ="fa fa-envelope"></i></a>
+				</div>
+				<a href="mailto:jason.breakdownify@gmail.com">jason.breakdownify@gmail.com</a>
+			</div>
+			<div class="col-md-4">
+				<img src="img/jm-media.png" style="height:64px; width:150px">
+				<hr class="light">
+				Follow Jomboy Media on social media!
+				<div class="jomboymedia">
+					<a href="https://www.facebook.com/JomboyMedia/" target="_blank"><i class ="fab fa-facebook"></i></a>
+					<a href="https://www.instagram.com/jomboymedia/" target="_blank"><i class ="fab fa-instagram"></i></a>
+					<a href="https://twitter.com/jomboymedia" target="_blank"><i class ="fab fa-twitter"></i></a>
+					<a href="https://www.youtube.com/user/phshockey12" target="_blank"><i class ="fab fa-youtube"></i></a>
+				</div>
+				<a href="https://jomboymedia.com/" target="_blank">jomboymedia.com/</a>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Site Map</h5>
+				<hr class="light">
+				<a href="index"><p>Home</p></a>
+				<a href="93mph"><p>93 MPH Scoreboard</p></a>
+				<a href="howitsmade"><p>How It Was Made</p></a>
+				<a href="contact"><p>Connect</p></a>
+			</div>
+			<div class="col-12">
+				<hr class="light-100">
+				<h5>&copy; breakdownify.club</h5>
+			</div>
+		</div>
+	</div>
+</footer>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-171065195-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-171065195-1');
+</script>
+
+
+
+</body>
+</html>
+
+
